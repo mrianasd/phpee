@@ -5,7 +5,7 @@ class Settings extends React.Component {
         return (
             <div id="Settings" className="tabcontent">
                 <h3>Home</h3>
-                <p>Welcome to Your pee tracking system</p>
+                <p>Welcome to Your pee tracking system Settings</p>
             </div>
         );
     }

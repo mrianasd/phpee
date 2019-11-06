@@ -1,11 +1,13 @@
 import React from 'react';
+import PatientDetail from './PatientDetails';
 
 class HomeContent extends React.Component {
+
+  
     render() {
         return (
-            <div id="Home" className="tabcontent">
-                <h3>Home</h3>
-                <p>Welcome to Your pee tracking system</p>
+            <div id="Patients" className="tabcontent">
+                <PatientDetail title="Patient Name"/>
             </div>
         );
     }

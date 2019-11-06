@@ -1,4 +1,6 @@
 import React from 'react';
+import {MdHome} from 'react-icons/md';
+import { thisExpression } from '@babel/types';
 
 class TabLink extends React.Component {
     render() {
@@ -42,21 +44,40 @@ class Tabs extends React.Component {
     }
 
     renderTab(i) {
-        return <TabLink 
-                value={i}
-                onClick={() => this.handleTabClick(i)} />
+        return  <a class="nav-link" href="#"   onClick={() => this.handleTabClick(i)} >{i}
+      </a> 
     }
 
     render() {
         return (
-            <div>
-                <div className="tab">
-                    {this.renderTab("Home")}
-                    {this.renderTab("DashBoard")}
-                    {this.renderTab("Settings")}
-                    {this.renderTab("Contacts")}
-                </div>
-            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow">
+  <div class="container">
+    <a class="navbar-brand" href="#">PH
+          <img src="https://svgsilh.com/svg/254088.svg" height="30" width="30" alt=""/>
+        </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" 
+    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse tab" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+        {this.renderTab("Patients")}
+        </li>
+        <li class="nav-item">
+        {this.renderTab("Settings")}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    
         );
     }
 }

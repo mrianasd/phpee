@@ -4,8 +4,8 @@ class DashBoard extends React.Component {
     render() {
         return (
             <div id="DashBoard" className="tabcontent">
-                <h3>Home</h3>
-                <p>Here youll se the graphics</p>
+                <h3>Pacientes</h3>
+                <br></br>
                 <ListData />
             </div>
         );

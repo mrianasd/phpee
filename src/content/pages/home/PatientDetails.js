@@ -70,11 +70,11 @@ class PatientDetail extends React.Component {
         return (
             <div class="container" >
                 <h2 class="text-center" id="title">{this.props.title}
-                <small class="small"> (72 years)</small> </h2>
+                <small class="small"> {"("+this.props.patient.edad+ "years)"}</small> </h2>
                     <ul class="list-inline small text-center">
-                    <li class="list-inline-item">3310092882</li>
+                    <li class="list-inline-item">{this.props.patient.cellphone}</li>
                     <li class="list-inline-item">|</li>
-                    <li class="list-inline-item">testmail@hotmail.com</li>
+                    <li class="list-inline-item">{this.props.patient.email}</li>
                     </ul>
                 <hr></hr>   
         <h3 className="mt-5">History</h3>
@@ -83,7 +83,6 @@ class PatientDetail extends React.Component {
         <h2 class="text-center" id="title">COLOR </h2>
         <p class="text-center small">Color history per {"day"}</p>
         <Pie data={dataPie} options={{ responsive: true }} />
-                <div style={{height: "700px"}}></div>
                 </div>
         );
     }

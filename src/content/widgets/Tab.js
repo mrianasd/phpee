@@ -61,17 +61,14 @@ class Tabs extends React.Component {
         </button>
     <div class="collapse navbar-collapse tab" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-        {this.renderTab("Patients")}
+        <li class="nav-item">
+        {this.renderTab("DashBoard")}
         </li>
         <li class="nav-item">
         {this.renderTab("Settings")}
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="#">Profile</a>
         </li>
       </ul>
     </div>

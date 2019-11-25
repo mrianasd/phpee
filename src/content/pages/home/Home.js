@@ -1,5 +1,4 @@
 import React from 'react';
-import PatientDetail from './PatientDetails';
 
 class HomeContent extends React.Component {
 

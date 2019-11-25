@@ -10,11 +10,16 @@ AWS.config.update({
 });
 
 export default class AWSConfig{
+  constructor(props){
+    this.state={
+      gridData:[]
+    }
+  }
+
   dynamodb = new AWS.DynamoDB();
   docClient = new AWS.DynamoDB.DocumentClient();
   
-  onRead = () => {
-    let that = this;
+  onRead(){
     let params = {
         TableName: "IoT-DB"
     };
@@ -24,10 +29,7 @@ export default class AWSConfig{
           console.log(err);
       } else {
         console.log(data)
-        //this will not be logged.
-      //     that.setState({
-      //         gridData: data
-      // })
+        return data;
       }
     });
   };

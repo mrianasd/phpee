@@ -90,3 +90,41 @@ table.StaticTable thead {
 }
 .show {display:block;} 
 .blok{margin:30px;}
+
+.register-heading{
+  text-align: center!important;
+  color: #495057;
+  padding: 10px;
+}
+input{
+  border: none;
+  border-radius: 1.5rem;
+  padding: 2%;
+  width: 60%;
+  background: #f8f9fa;
+  font-weight: bold;
+  color: #383d41;
+  margin-top: 30%;
+  margin-bottom: 3%;
+  cursor: pointer;
+}
+
+.btnRegister{
+  float: right;
+  margin-top: 10%;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 2%;
+  background: #0062cc;
+  color: #fff;
+  font-weight: 600;
+  width: 50%;
+  cursor: pointer;
+}
+
+.btn-create{
+  margin-left: 10px;
+  background: #0062cc!important;
+  opacity: 80%;
+  color: white!important;
+}

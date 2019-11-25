@@ -65,10 +65,10 @@ class Tabs extends React.Component {
         {this.renderTab("DashBoard")}
         </li>
         <li class="nav-item">
-        {this.renderTab("Settings")}
+          <a class="nav-link" href="#">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+        {this.renderTab("Settings")}
         </li>
       </ul>
     </div>

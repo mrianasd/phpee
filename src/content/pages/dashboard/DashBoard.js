@@ -4,13 +4,11 @@ import ListData from './ListData'
 import AWSConfig from '../../config/awsConfig';
 class DashBoard extends React.Component {
     render() {
-        console.log("HolaMundo")
         let aws = new AWSConfig()
-        aws.onRead()
+        aws.onRead();
+
         return (
-            <div id="DashBoard" className="tabcontent">
-                <h3>Pacientes</h3>
-                <br></br>
+            <div >  
                 <ListData />
             </div>
         );

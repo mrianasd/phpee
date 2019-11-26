@@ -67,7 +67,6 @@ componentDidUpdate(){
     this.flag[0]=this.state.patientsData[0];
 
     if(this.state.patients.length==0){
-      console.log('get in', this.state.patientsData[0], " ", this.state.sensors[0]);
       let patients = [];
       let history =[];
       let patObject ={};
@@ -90,7 +89,7 @@ componentDidUpdate(){
             volData.push(this.state.sensors[j].vol);
             colorData.push(this.state.sensors[j].color);
             
-            if(this.state.sensors[j].sampleId==2 ||this.state.sensors[j].sampleId==7 ){ //delete later just adjust to get TODAYS DATA
+            if(this.state.sensors[j].sampleId===2 ||this.state.sensors[j].sampleId===7 ){ //delete later just adjust to get TODAYS DATA
               patObject={ patientId: this.state.patientsData[i].patientId,
                 nombre: this.state.patientsData[i].name, 
                 cellphone: this.state.patientsData[i].cellphone,
@@ -98,7 +97,7 @@ componentDidUpdate(){
                 ph:this.state.sensors[j].ph,
                 vol:this.state.sensors[j].vol,
                 color:this.state.sensors[j].color,
-                sampleId: this.state.sensors[j].sampleId,}
+                sampleId: this.state.sensors[j].sampleId}
                 patients.push(patObject);} //add condition else if theres no data from that day put "No available data"
               }
               if(j===this.state.sensors.length-1){
@@ -113,6 +112,19 @@ componentDidUpdate(){
                 }
                 history.push(historyObject);
               }             
+            }
+            if(phData.length==0){
+                  let newObject={
+                    nombre: this.state.patientsData[i].name, 
+                    cellphone: this.state.patientsData[i].cellphone,
+                    edad: this.state.patientsData[i].age,
+                    ph:null,
+                    vol:null,
+                    color:null,
+                    sampleId: null
+                  }
+                  patients.push(newObject);
+              
             }
           }
       this.setState({patients:patients})
@@ -132,7 +144,7 @@ showGraphs(idx){
     return (
       <div  id="DashBoard" className="tabcontent">
         <h1>Patients</h1>
-        <Popup title="Create new Patient" content={<CreatePatient title="Create new Patient"/>}/>
+        <Popup title="Create new Patient" content={<CreatePatient title="Create new Patient" size={this.state.patientsData.length}/>}/>
         <section class="blok">
         <div class="blok-body">
         {this.state.patients.map((patient, idx) => (
@@ -152,13 +164,14 @@ showGraphs(idx){
                           <div id={"collapse"+idx} class="collapse" role="tabpanel" aria-labelledby={"heading"+idx}
                             data-parent="#accordionEx7">
                             <div class="card-body mb-1 rgba-grey-light white-text">
+                            {patient.ph==null && patient.color==null && patient.vol ==null? <p>No data available</p>:
                             <div className="small">
                               <span className="card-info-title">PH: </span>{patient.ph}
                               <span className="card-info-title">Color: </span><button class="color-info" 
                                     style={{backgroundColor: "rgb(this.state.patients.color.red, this.state.patients.color.green, this.state.patients.blue)"}}>
                                   </button>
                               <span className="card-info-title">Volumen: </span>{patient.vol +' ml'} 
-                              </div>  
+                              </div> }
                             </div>
                           </div>
                         </div>
@@ -166,7 +179,9 @@ showGraphs(idx){
                 </div>  </ul> 
           <div class="tab-content col-sm-8" >
             <div  hidden={true} id={"patient-graphs"+idx}> 
+            {patient.ph==null && patient.color==null && patient.vol ==null? <p className="card-info-title">No history available</p>:
             <PatientDetail title={patient.nombre + " Historial"}  patient={this.state.patientHistory.filter(p=>p.patientId ===patient.patientId)}/>
+          }
           </div>
           </div>
         </div>

@@ -46,7 +46,6 @@ this.docClient.scan(paramsSensors, (err, data) =>{
   if (err) {
       console.log(err);
   } else {
-    console.log('%%%%',data.Items)
     this.setState({sensors:data.Items});
   }
 });
@@ -54,7 +53,6 @@ this.docClient.scan(paramsPatients, (err, data) =>{
   if (err) {
       console.log(err);
   } else {
-    console.log('%%%%',data.Items)
     this.setState({patientsData:data.Items});
   }
 });
@@ -74,22 +72,31 @@ componentDidUpdate(){
       let phData=[];
       let colorData=[];
       let volData=[];
+      let datesData=[];
+      let today = new Date();
+      let day =""+ 0+today.getDate();
+      let month=today.getMonth()+1;
+      let todayDateString=today.getFullYear()+"-"+month+"-"+day;
 
+      //loops through patients array
       for(let i=0; i<this.state.patientsData.length; i++){
         historyObject={};
         phData=[];
         volData=[];
         colorData=[];
+        datesData=[];
+        //for each patient we loop through sensors data array
         for(let j=0; j<this.state.sensors.length; j++){
+          //if the patient has a sensor data enters here to save the data
           if(this.state.sensors[j].patientId===this.state.patientsData[i].patientId){
-            //Creates the patient object with data from Today
-            
             //saves the data history of the patient 
             phData.push(this.state.sensors[j].ph);
             volData.push(this.state.sensors[j].vol);
             colorData.push(this.state.sensors[j].color);
+            datesData.push(this.state.sensors[j].timeStamp);
             
-            if(this.state.sensors[j].sampleId===2 ||this.state.sensors[j].sampleId===7 ){ //delete later just adjust to get TODAYS DATA
+            //Creates the patient object with data from Today
+            if(this.state.sensors[j].timeStamp.slice(0,10) ===  todayDateString ){ 
               patObject={ patientId: this.state.patientsData[i].patientId,
                 nombre: this.state.patientsData[i].name, 
                 cellphone: this.state.patientsData[i].cellphone,
@@ -98,7 +105,20 @@ componentDidUpdate(){
                 vol:this.state.sensors[j].vol,
                 color:this.state.sensors[j].color,
                 sampleId: this.state.sensors[j].sampleId}
-                patients.push(patObject);} //add condition else if theres no data from that day put "No available data"
+                patients.push(patObject);
+              }
+              //si no tienen datos de hoy pero si son pacientes existentes con datos e historial
+            else if(patients.filter(item=> item.nombre === this.state.patientsData[i].name).length<=0){
+                  patObject={ patientId: this.state.patientsData[i].patientId,
+                    nombre: this.state.patientsData[i].name, 
+                    cellphone: this.state.patientsData[i].cellphone,
+                    edad: this.state.patientsData[i].age,
+                    ph:null,
+                    vol:null,
+                    color:null,
+                    sampleId: null}
+                    patients.push(patObject);
+                } 
               }
               if(j===this.state.sensors.length-1){
                 historyObject={
@@ -108,12 +128,14 @@ componentDidUpdate(){
                   edad: this.state.patientsData[i].age,
                   phData:phData,
                   volData: volData,
-                  colorData: colorData
+                  colorData: colorData,
+                  fechas: datesData
                 }
                 history.push(historyObject);
               }             
             }
-            if(phData.length==0){
+            //si no tienen datos
+            if(phData.length===0){
                   let newObject={
                     nombre: this.state.patientsData[i].name, 
                     cellphone: this.state.patientsData[i].cellphone,
@@ -164,7 +186,7 @@ showGraphs(idx){
                           <div id={"collapse"+idx} class="collapse" role="tabpanel" aria-labelledby={"heading"+idx}
                             data-parent="#accordionEx7">
                             <div class="card-body mb-1 rgba-grey-light white-text">
-                            {patient.ph==null && patient.color==null && patient.vol ==null? <p>No data available</p>:
+                            {patient.ph==null && patient.color==null && patient.vol ==null? <p>No data available for today</p>:
                             <div className="small">
                               <span className="card-info-title">PH: </span>{patient.ph}
                               <span className="card-info-title">Color: </span><button class="color-info" 
@@ -179,7 +201,7 @@ showGraphs(idx){
                 </div>  </ul> 
           <div class="tab-content col-sm-8" >
             <div  hidden={true} id={"patient-graphs"+idx}> 
-            {patient.ph==null && patient.color==null && patient.vol ==null? <p className="card-info-title">No history available</p>:
+            { this.state.patientHistory.filter(p=>p.patientId ===patient.patientId).length===0 ? <p className="card-info-title">No history available</p>:
             <PatientDetail title={patient.nombre + " Historial"}  patient={this.state.patientHistory.filter(p=>p.patientId ===patient.patientId)}/>
           }
           </div>
@@ -189,33 +211,6 @@ showGraphs(idx){
         </div>
         </section>
       </div>
-
-        /* <div id="ListData" className="List">
-        <Card style={{ width: '20rem' }}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-              <Accordion defaultActiveKey="1">
-                <Card>
-                  <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                      Mariana Salas
-                    </Accordion.Toggle>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey="0">
-                    <Card.Body >
-                      <div className="small">
-                       <span className="card-info-title">PH: </span>{patient.ph}
-                      <span className="card-info-title">Color: </span><button class="color-info" style={{background:patient.color}}></button>
-                      <span className="card-info-title">Volumen: </span>{patient.ph} 
-                      </div>  
-                      </Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              </Accordion>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
-      </div> */
     );
   }
 }

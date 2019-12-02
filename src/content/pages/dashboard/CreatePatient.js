@@ -38,9 +38,7 @@ class CreatePatient extends React.Component {
        //PUT TO DB 
        var params = {
         Item: {
-          patientId: 
-            id // Number value.
-          ,
+          patientId: id,
           name: name,
           age:  age,
           cellphone: cellphone,

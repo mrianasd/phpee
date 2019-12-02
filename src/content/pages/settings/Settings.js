@@ -1,11 +1,11 @@
 import React from 'react';
+import LogIn from './LogIn';
 
 class Settings extends React.Component {
     render() {
         return (
             <div id="Settings" className="tabcontent">
-                <h3>Home</h3>
-                <p>Welcome to Your pee tracking system Settings</p>
+                <LogIn/>
             </div>
         );
     }

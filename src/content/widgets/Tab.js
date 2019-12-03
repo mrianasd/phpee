@@ -4,15 +4,41 @@ import { thisExpression } from '@babel/types';
 import DashBoard from '../pages/dashboard/DashBoard';
 import ListData from '../pages/dashboard/ListData';
 
+import * as AWS from 'aws-sdk'
+import credentials from '../config/aws-credentials'
 
+AWS.config.update({
+  region: 'us-east-1',
+  endpoint: 'dynamodb.us-east-1.amazonaws.com',
+  accessKeyId: credentials.accessKey,
+  secretAccessKey: credentials.secretKey
+});
 
 class Tabs extends React.Component {
   constructor(props){
     super(props)
     this.state={ 
-      logged:false
+      logged:false,
+      doctors:[]
     }
     this.handleSignIn.bind(this);
+  }
+
+  
+  dynamodb = new AWS.DynamoDB();
+  docClient = new AWS.DynamoDB.DocumentClient();
+  componentDidMount(){
+    //AWS
+    let paramsLogIn = {
+      TableName: "IoT-Dr"};
+
+      this.docClient.scan(paramsLogIn, (err, data) =>{
+        if (err) {
+            console.log(err);
+        } else {
+          this.setState({doctors:data.Items});
+        }
+      });
   }
 
     handleTabClick(id) {
@@ -48,12 +74,20 @@ class Tabs extends React.Component {
 
     handleSignIn(){
       console.log("login");
-
+      let ok=false;
       let user= document.getElementById("inputEmail").value;
       let pswd= document.getElementById("inputPassword").value;
   
       console.log(user,pswd); 
-      this.setState({logged:true});
+      this.state.doctors.map(doc=>{
+        if(doc.email==user && doc.password==pswd)
+          ok=true;
+      });
+      if(ok){
+      this.setState({logged:true});}
+      else{
+        alert("Wrong user o password");
+      }
   
     }
     logout(){

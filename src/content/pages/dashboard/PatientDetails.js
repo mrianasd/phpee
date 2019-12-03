@@ -44,7 +44,7 @@ class PatientDetail extends React.Component {
           }else if((red >=248 && red <=255)&&(green >=248 && green <=255) && (blue >=129 && blue <=229)){
             lightYellow++;
           }
-          else if((red >=235 && red <=255)&&(green >=220 && green <=255) && (blue >=0 && blue <=130)){
+          else if((red >=235 && red <=255)&&(green >=145 && green <=255) && (blue >=0 && blue <=130)){
             darkYellow++;
           }
           else if((red >=195 && red <=234)&&(green>=165 && green <=200) && (blue>=0  && blue <=89)){

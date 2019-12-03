@@ -78,7 +78,7 @@ componentDidUpdate(){
       let month=today.getMonth()+1;
       let todayDateString=today.getFullYear()+"-"+month+"-"+day;
       let todayPatient=[];
-
+   
       //loops through patients array
       for(let i=0; i<this.state.patientsData.length; i++){
         historyObject={};
@@ -97,6 +97,8 @@ componentDidUpdate(){
             datesData.push(this.state.sensors[j].timeStamp);
             
             //Creates the patient object with data from Today
+            //let timeStamp = new Date(this.state.sensors[j].timeStamp);
+
             if(this.state.sensors[j].timeStamp.slice(0,10) ===  todayDateString ){ 
               patObject={ patientId: this.state.patientsData[i].patientId,
                 nombre: this.state.patientsData[i].name, 

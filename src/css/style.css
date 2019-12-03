@@ -128,3 +128,19 @@ input{
   opacity: 80%;
   color: white!important;
 }
+
+.home{
+  align-content: center;
+  padding-left: 40%;
+  padding-top: 5%;
+}
+.subtitle{
+  align-content: center;
+  padding-left: 38%;
+}
+.arrow{
+  display: inline-flex;
+}
+img{
+size: 20pt;
+}

@@ -77,6 +77,7 @@ componentDidUpdate(){
       let day =""+ 0+today.getDate();
       let month=today.getMonth()+1;
       let todayDateString=today.getFullYear()+"-"+month+"-"+day;
+      let todayPatient=[];
 
       //loops through patients array
       for(let i=0; i<this.state.patientsData.length; i++){
@@ -106,19 +107,10 @@ componentDidUpdate(){
                 color:this.state.sensors[j].color,
                 sampleId: this.state.sensors[j].sampleId}
                 patients.push(patObject);
+                todayPatient.push(this.state.patientsData[i].name);
               }
               //si no tienen datos de hoy pero si son pacientes existentes con datos e historial
-            else if(patients.filter(item=> item.nombre === this.state.patientsData[i].name).length<=0){
-                  patObject={ patientId: this.state.patientsData[i].patientId,
-                    nombre: this.state.patientsData[i].name, 
-                    cellphone: this.state.patientsData[i].cellphone,
-                    edad: this.state.patientsData[i].age,
-                    ph:null,
-                    vol:null,
-                    color:null,
-                    sampleId: null}
-                    patients.push(patObject);
-                } 
+            
               }
               if(j===this.state.sensors.length-1){
                 historyObject={
@@ -132,6 +124,18 @@ componentDidUpdate(){
                   fechas: datesData
                 }
                 history.push(historyObject);
+                if(!(todayPatient.includes(this.state.patientsData[i].name)) &&phData.length>0){
+                  console.log("test", (todayPatient.includes(this.state.patientsData[i].name)), this.state.patientsData[i].name, todayPatient);
+                      patObject={ patientId: this.state.patientsData[i].patientId,
+                        nombre: this.state.patientsData[i].name, 
+                        cellphone: this.state.patientsData[i].cellphone,
+                        edad: this.state.patientsData[i].age,
+                        ph:null,
+                        vol:null,
+                        color:null,
+                        sampleId: null}
+                        patients.push(patObject);
+                    }  
               }             
             }
             //si no tienen datos
@@ -163,6 +167,7 @@ showGraphs(idx){
 }
 
   render() {
+    let color="255, 255, 255";
     return (
       <div  id="DashBoard" className="tabcontent">
         <h1>Patients</h1>
@@ -188,9 +193,10 @@ showGraphs(idx){
                             <div class="card-body mb-1 rgba-grey-light white-text">
                             {patient.ph==null && patient.color==null && patient.vol ==null? <p>No data available for today</p>:
                             <div className="small">
+                            <p hidden={true}>{ color=patient.color.split(", ")}</p>
                               <span className="card-info-title">PH: </span>{patient.ph}
                               <span className="card-info-title">Color: </span><button class="color-info" 
-                                    style={{backgroundColor: "rgb(this.state.patients.color.red, this.state.patients.color.green, this.state.patients.blue)"}}>
+                                    style={{backgroundColor: "rgb("+color[0]+"," +color[1]+","+ color[2]+")"}}>
                                   </button>
                               <span className="card-info-title">Volumen: </span>{patient.vol +' ml'} 
                               </div> }

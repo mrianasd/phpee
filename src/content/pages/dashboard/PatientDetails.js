@@ -3,34 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Line } from "react-chartjs-2";
 import { Pie } from "react-chartjs-2";
 
-/* const dataPie= {
-    labels: ["Transparent", "Light Yellow", "Dark Yellow", "Honey", "Coke", "Pink/Red", "Orange", "Green/Blue"],
-    datasets: [
-      {
-        data: [5, 10, 10, 2, 1,1,3,1],
-        backgroundColor: [
-          "#FFFFFF",//255,255,255
-          "#FAFAA8",//rgb(250, "250, 168)
-          "#FFEA46",//rgb(255, 234, 70)
-          "#C3C338",//rgb(195, 195, 56)
-          "#4B400A",//rgb(75, 64, 10)
-          "#FF144E",//rgb(255, 20, 78)
-          "#EF7C17",//rgb(239, 124, 23)
-          "#17EF8A",//rgb(23, 239, 138)
-        ],
-        hoverBackgroundColor: [
-            "#FFFFFF",
-            "#FAFAA8",
-            "#F2F21C",
-            "#C3C338",
-            "#4B400A",
-            "#EF176D",
-            "EF7C17",
-            "17EF8A"
-        ]
-      }
-    ]
-  } */
 class PatientDetail extends React.Component {
     constructor(props){
         super(props)
@@ -51,16 +23,6 @@ class PatientDetail extends React.Component {
     }
 
     processColors(){
-      /*
-      Transparent", "Light Yellow", "Dark Yellow", "Honey", "Coke", "Pink/Red", "Orange", "Green/Blue
-       "#FFFFFF",//255,255,255
-          "#FAFAA8",//rgb(250, "250, 168)
-          "#FFEA46",//rgb(255, 234, 70)
-          "#C3C338",//rgb(195, 195, 56)
-          "#4B400A",//rgb(75, 64, 10)
-          "#FF144E",//rgb(255, 20, 78)
-          "#EF7C17",//rgb(239, 124, 23)
-          "#17EF8A",//rgb(23, 239, 138)*/ 
         let colorData=[];
         let transparent=0;
         let lightYellow=0;
@@ -70,28 +32,34 @@ class PatientDetail extends React.Component {
         let pinkRed=0;
         let orange=0;
         let greenBlue=0;
+        
         this.props.patient[0].colorData.map(color=>{
-          if(color.red==255 && color.green ==255 && color.blue==255){
+          let colors=color.split(", ");
+          let red=colors[0];
+          let green =colors[1];
+          let blue =colors[2]; 
+
+          if(red==255 && green ==255 && blue==255){
             transparent++;
-          }else if(color.red ===250&& color.green===250 && color.blue==168){
+          }else if((red >=248 && red <=255)&&(green >=248 && green <=255) && (blue >=129 && blue <=229)){
             lightYellow++;
           }
-          else if(color.red ==255&& color.green==234 && color.blue==70){
+          else if((red >=235 && red <=255)&&(green >=220 && green <=255) && (blue >=0 && blue <=130)){
             darkYellow++;
           }
-          else if(color.red ==195&& color.green==195 && color.blue==56){
+          else if((red >=195 && red <=234)&&(green>=165 && green <=200) && (blue>=0  && blue <=89)){
             honey++;
           }
-          else if(color.red ==75&& color.green==64 && color.blue==10){
+          else if((red >=70 && red<=120)&& (green>=0&&green<=75) && (blue>=0 && blue<=50)){
             coke++;
           }
-          else if(color.red ==255&& color.green==20 && color.blue==78){
-            pinkRed++;
-          }
-          else if(color.red ==239&& color.green==124 && color.blue==23){
+          else if((red>=225&&red<=255)&& (green>=90 &&green<=160) && (blue>=0&&blue<=0)){
             orange++;
           }
-          else if(color.red ==23&& color.green==239 && color.blue==138){
+          else if((red >=160&&red<=255)&& (green>=0&&green<=80) && (blue>=0&&blue<=80)){
+            pinkRed++;
+          }
+          else if((red >=0&&red<=60)&& (green>=100&& green<=255) && (blue>=100&&blue<=255)){
             greenBlue++;
           }
         });

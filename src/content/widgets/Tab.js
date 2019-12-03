@@ -89,8 +89,9 @@ class Tabs extends React.Component {
             </div>
           </nav>
           {this.state.logged? 
-            <div ><h3 className="home">WELCOME DR!</h3>
-            <p className="subtitle">Click on <strong>DashBoard</strong> to see your patients</p>
+            <div >
+            {/*   <h3 className="home">WELCOME DR!</h3>
+            <p className="subtitle">Click on <strong>DashBoard</strong> to see your patients</p> */}
              {/* <img src="https://c0.piktochart.com/v2/uploads/81ecd723-4957-46d6-993e-ac6d6bdc0226/354c684dc50a364498a56ef5802ea94e5ca33213_original.png"></img> */}
              </div>:
             <div class="container">

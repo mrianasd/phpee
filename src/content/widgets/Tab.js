@@ -1,7 +1,6 @@
 import React from 'react';
 import {MdHome} from 'react-icons/md';
 import { thisExpression } from '@babel/types';
-import LogIn from '../pages/settings/LogIn';
 import DashBoard from '../pages/dashboard/DashBoard';
 import ListData from '../pages/dashboard/ListData';
 
@@ -50,8 +49,8 @@ class Tabs extends React.Component {
     handleSignIn(){
       console.log("login");
 
-      let user= document.getElementById("inputEmail");
-      let pswd= document.getElementById("inputPassword").innerHTML;
+      let user= document.getElementById("inputEmail").value;
+      let pswd= document.getElementById("inputPassword").value;
   
       console.log(user,pswd); 
       this.setState({logged:true});
@@ -59,7 +58,9 @@ class Tabs extends React.Component {
     }
     logout(){
       console.log("logout");
+      this.handleTabClick("Home")
       this.setState({logged:false});
+      
 
     }
 
@@ -103,7 +104,7 @@ class Tabs extends React.Component {
                       <form class="form-signin">
                         <div class="form-label-group">
                           <label for="inputEmail">Email address</label>
-                          <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus></input>
+                          <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required defaultValue=""></input>
                         </div>
                         <div class="form-label-group">
                           <label for="inputPassword">Password</label>

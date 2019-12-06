@@ -7,7 +7,6 @@ import credentials from '../../config/aws-credentials'
 import Popup from '../../widgets/PopUp';
 import CreatePatient from './CreatePatient';
 
-
 AWS.config.update({
   region: 'us-east-1',
   endpoint: 'dynamodb.us-east-1.amazonaws.com',
@@ -28,7 +27,6 @@ class ListData extends React.Component {
 
   dynamodb = new AWS.DynamoDB();
   docClient = new AWS.DynamoDB.DocumentClient();
-  
 
 componentDidMount(){
 /*   var newpatients=[{nombre:"Mariana Salas", edad:70, email:"mariana.salas@gmail.com", cellphone:"3312225876", ph:5,
@@ -75,6 +73,7 @@ componentDidUpdate(){
       let datesData=[];
       let today = new Date();
       let day =""+ 0+today.getDate();
+      day+=1;
       let month=today.getMonth()+1;
       let todayDateString=today.getFullYear()+"-"+month+"-"+day;
       let todayPatient=[];
@@ -99,7 +98,8 @@ componentDidUpdate(){
             //Creates the patient object with data from Today
             //let timeStamp = new Date(this.state.sensors[j].timeStamp);
 
-            if(this.state.sensors[j].timeStamp.slice(0,10) ===  todayDateString ){ 
+            if(this.state.sensors[j].timeStamp.slice(0,10) ===  "2019-12-04"){ 
+              
               patObject={ patientId: this.state.patientsData[i].patientId,
                 nombre: this.state.patientsData[i].name, 
                 cellphone: this.state.patientsData[i].cellphone,
@@ -127,7 +127,6 @@ componentDidUpdate(){
                 }
                 history.push(historyObject);
                 if(!(todayPatient.includes(this.state.patientsData[i].name)) &&phData.length>0){
-                  console.log("test", (todayPatient.includes(this.state.patientsData[i].name)), this.state.patientsData[i].name, todayPatient);
                       patObject={ patientId: this.state.patientsData[i].patientId,
                         nombre: this.state.patientsData[i].name, 
                         cellphone: this.state.patientsData[i].cellphone,
